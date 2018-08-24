@@ -1,0 +1,59 @@
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn3.devexpress.com/jslib/18.1.4/js/dx.all.js"></script>
+</head>
+
+<div class="container" > 
+      
+                 
+<div id="calendar-demo" style="display:flex;border: 1px solid #b1b1bc; width: 600px">
+    
+    <div class="widget-container" style="border-right: 1px solid #b1b1bc; height: 375px;margin-right: 21px">
+        
+        <h3  style="margin-left: 35px;">START DATETIME</h3>
+        <dx-calendar #fromCalendar
+            id="calendar-container" 
+            [min]="minDateValue"
+            [max]="maxDateValue"
+            [value]="currentValue" >
+                
+        </dx-calendar>
+        <dx-date-box #fromDate style="margin-left: 65px;"
+                        [value]="now"
+                        type="time"
+                        displayFormat="hh:mm:ss">
+        </dx-date-box>
+    </div>
+
+    <div class="widget-container" >
+            <h3 style="margin-left: 35px;">END DATETIME</h3>
+                       
+        <dx-calendar #toCalendar
+            id="calendar-container" 
+            [min]="minDateValue"
+            [max]="maxDateValue"
+            [value]="currentValue">
+                <span *dxTemplate="let cell of 'custom'" [ngClass]="getCellCssClass(cell.date)">
+                    {{cell.text}}
+                </span>
+        </dx-calendar>
+        <dx-date-box #toDate style="margin-left: 65px;"
+                        [value]="now"
+                        type="time"
+                        displayFormat="HH:mm:ss">
+        </dx-date-box>
+    </div>
+    <!--yyyy-MM-ddTHH:mm:ssZ-->
+</div>
+
+    <div><b>SELECTED RANGE-FROM:{{fromCalendar.value.getDate()}}/{{fromCalendar.value.toLocaleString(locale, { month: "long" })}}/{{fromCalendar.value.getFullYear()}} - {{toCalendar.value.getDate()}}/{{toCalendar.value.toLocaleString(locale, { month: "long" })}}/{{toCalendar.value.getFullYear()}}</b> </div>
+</div>
+
+<div class="container">
+        
+        <button type="button" class="btn btn-success" (click)="submitDateTime(fromCalendar.value,toCalendar.value,fromDate.value,toDate.value)">SAVE</button>
+        
+
+      </div>
